@@ -1,37 +1,23 @@
-'use strict';
+function updateTimer() {
+    future = Date.parse("jun 12, 2022 01:30:00");
+ now = new Date();
+ diff = future - now;
 
-(function ($){
-    $('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:0,
-    items:1,
-    dots:true,
-    smartSpeed:2000,
-    autoHeight:false,
-    autoplay:true, 
-    responsiveClass:true,
-    })
+ days = Math.floor(diff / (1000 * 60 * 60 * 24));
+ hours = Math.floor(diff / (1000 * 60 * 60));
+ mins = Math.floor(diff / (1000 * 60));
+ secs = Math.floor(diff / 1000);
 
-    //CountDown Timer
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2,'0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
+ d = days;
+ h = hours - days * 24;
+ m = mins - hours * 60;
+ s = secs - mins * 60;
 
-    if(mm == 12) {
-        mm = '01';
-        yyyy = yyyy + 1;
-    } else {
-        mm = parseInt(mm) + 1;
-        mm = String(mm).padStart(2, '0');
-    }
-    var timerdate = mm + '/' + dd + '/' + yyyy;
-    //timerdate = "2022/04/30";
-    
-    jQuery("#countdown-time").countdown(timerdate, function(event){
-        jQuery(this).html(event.strftime("<div class='countdown_item'><span>Month</span>"))
-    })
-
-    
-
-})(jQuery);
+ document.getElementById("discount_timer")
+  .innerHTML =
+  '<div>' + d + '<span> Days</span></div>' +
+  '<div>' + h + '<span> Hours</span></div>' +
+  '<div>' + m + '<span> Minutes</span></div>' +
+  '<div>' + s + '<span> Seconds</span></div>';
+}
+setInterval('updateTimer()', 1000);
